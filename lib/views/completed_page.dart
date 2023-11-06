@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CompletedPage extends StatefulWidget {
   const CompletedPage({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _CompletedPageState extends State<CompletedPage> {
                 borderRadius: BorderRadius.circular(10),
                 onTap: () {
                   //TODO: Go to task_view using go_router
+                  context.pushNamed('task_view_page');
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),

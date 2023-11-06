@@ -1,22 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list_riverpod/views/completed_page.dart';
-import 'package:to_do_list_riverpod/views/task_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/providers/bottom_nav.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key, required this.child});
+
+  final Widget child;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int currentIndex = 0;
-  final screens = [
-    const TaskPage(),
-    const CompletedPage(),
-  ];
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
+    int currentIndex = ref.watch(bottomNav);
+
+    void changeTab(int index) {
+      ref.read(bottomNav.notifier).setIndex(index);
+      switch (index) {
+        case 0:
+          context.go('/');
+          break;
+        case 1:
+          context.go('/completed');
+          break;
+        default:
+          context.go('/');
+          break;
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -38,13 +53,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: screens[currentIndex],
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+        onTap: (value) => changeTab(value),
         elevation: 0,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white24,

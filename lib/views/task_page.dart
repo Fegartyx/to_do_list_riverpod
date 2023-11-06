@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _TaskPageState extends State<TaskPage> {
                 borderRadius: BorderRadius.circular(10),
                 onTap: () {
                   //TODO: Go to task_view using go_router
+                  context.pushNamed('task_view_page');
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -55,6 +57,17 @@ class _TaskPageState extends State<TaskPage> {
               ),
             ),
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: () {
+          //TODO: Go to task_view using go_router
+          context.pushNamed('task_view_page');
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
     );
