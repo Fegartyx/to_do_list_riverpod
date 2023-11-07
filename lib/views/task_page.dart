@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/models/task.dart';
+import 'package:to_do_list_riverpod/providers/task_provider.dart';
 
-class TaskPage extends StatefulWidget {
+class TaskPage extends ConsumerStatefulWidget {
   const TaskPage({Key? key}) : super(key: key);
 
   @override
-  _TaskPageState createState() => _TaskPageState();
+  ConsumerState<TaskPage> createState() => _TaskPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _TaskPageState extends ConsumerState<TaskPage> {
   @override
   Widget build(BuildContext context) {
-    bool selected = false;
+    var data = ref.watch(taskProvider);
+    debugPrint("title : ${data.length}");
+    data.map((e) => e.title).forEach((element) {
+      debugPrint("title : $element");
+    });
     return Scaffold(
       backgroundColor: const Color(0xFF444444),
       body: SafeArea(
@@ -34,9 +41,7 @@ class _TaskPageState extends State<TaskPage> {
                     children: [
                       Checkbox(
                         value: false,
-                        onChanged: (value) {
-                          value = selected;
-                        },
+                        onChanged: (value) {},
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +67,9 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
         onPressed: () {
-          //TODO: Go to task_view using go_router
-          context.pushNamed('task_view_page');
+          ref.read(taskProvider.notifier).addTask(
+              Task(2, title: "Flutter Desc", description: "Flutter Belajar"));
+          // context.pushNamed('task_view_page');
         },
         child: const Icon(
           Icons.add,
