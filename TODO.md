@@ -1,6 +1,6 @@
 ## TODO
 
-- [] Connecting to SQLite
+- [] Adding Data From SqLite to State inside Riverpod
 
 ### Progress
 
@@ -14,3 +14,6 @@
 - [x] Adding view_task_page for editing/add new task
 - [x] Testing the task just using List of Object
 - [x] Model Class for Task
+- [x] Connecting to SQLite
+- [x] Adding model/entity for sqlite class
+- [x] Doing CRUD for sqlite

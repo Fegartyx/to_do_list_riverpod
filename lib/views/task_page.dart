@@ -13,12 +13,29 @@ class TaskPage extends ConsumerStatefulWidget {
 
 class _TaskPageState extends ConsumerState<TaskPage> {
   @override
+  void initState() {
+    // var i = ref.read(taskProvider);
+    // i.map((e) => e.id).forEach((element) {
+    //   debugPrint("title watch initstate : $element");
+    // });
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var data = ref.watch(taskProvider);
-    debugPrint("title : ${data.length}");
-    data.map((e) => e.title).forEach((element) {
-      debugPrint("title : $element");
+    var data = ref.watch(taskProvider).where((element) => !element.isCompleted);
+    data.forEach((element) {
+      debugPrint(
+          "id watch : ${element.id}, title : ${element.title}, isCompleted : ${element.isCompleted}");
     });
+    // ref.listen(taskProvider, (previous, next) {
+    //   debugPrint("Inside Listen");
+    //   previous?.forEach((element) =>
+    //       debugPrint("previous : ${element.id}, title : ${element.title}"));
+    //   next.forEach((element) =>
+    //       debugPrint("next : ${element.id}, title : ${element.title}"));
+    // });
     return Scaffold(
       backgroundColor: const Color(0xFF444444),
       body: SafeArea(
@@ -43,7 +60,7 @@ class _TaskPageState extends ConsumerState<TaskPage> {
                         value: false,
                         onChanged: (value) {},
                       ),
-                      Column(
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -65,10 +82,13 @@ class _TaskPageState extends ConsumerState<TaskPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.lightBlue,
         onPressed: () {
-          ref.read(taskProvider.notifier).addTask(
-              Task(2, title: "Flutter Desc", description: "Flutter Belajar"));
+          int id = data.length + 1;
+          ref.read(taskProvider.notifier).addTask(Task(id,
+              title: "Flutter Desc",
+              description: "Flutter Belajar",
+              isCompleted: true));
           // context.pushNamed('task_view_page');
         },
         child: const Icon(

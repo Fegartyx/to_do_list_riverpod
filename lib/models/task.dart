@@ -10,4 +10,13 @@ class Task {
     required this.description,
     this.isCompleted = false,
   });
+
+  factory Task.fromMap(Map<String, dynamic> map) {
+    return Task(
+      map['id'],
+      title: map['title'],
+      description: map['description'],
+      isCompleted: map['isCompleted'],
+    );
+  }
 }
