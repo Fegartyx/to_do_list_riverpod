@@ -17,15 +17,15 @@ class TaskDB {
     ''');
   }
 
-  Future<int> create(
-      {required String title,
-      required String description,
-      required bool isCompleted}) async {
+  Future<int> create({
+    required String title,
+    required String description,
+  }) async {
     final db = await DBServices().database;
     return await db.insert(tableName, {
       "title": title,
       "description": description,
-      "isCompleted": isCompleted,
+      "isCompleted": false,
     });
   }
 
@@ -42,10 +42,11 @@ class TaskDB {
   }
 
   Future<int> update(
-      {required int id,
-      required String title,
-      String? description,
-      required bool isCompleted}) async {
+    bool isCompleted, {
+    required int id,
+    required String title,
+    String? description,
+  }) async {
     final db = await DBServices().database;
     return await db.update(
         tableName,

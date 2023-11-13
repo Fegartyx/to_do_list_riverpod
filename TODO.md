@@ -1,6 +1,9 @@
 ## TODO
 
-- [] Adding Data From SqLite to State inside Riverpod
+- [] Add Data
+- [] Edit Data
+- [] Delete Data
+- [] Edit Data For Specific Field
 
 ### Progress
 
@@ -17,3 +20,4 @@
 - [x] Connecting to SQLite
 - [x] Adding model/entity for sqlite class
 - [x] Doing CRUD for sqlite
+- [x] Read Data From SqLite to State inside Riverpod
