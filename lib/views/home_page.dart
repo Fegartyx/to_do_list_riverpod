@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:to_do_list_riverpod/providers/bottom_nav.dart';
+import 'package:to_do_list_riverpod/providers/task_provider.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key, required this.child});
@@ -38,17 +39,17 @@ class _HomePageState extends ConsumerState<HomePage> {
         elevation: 0,
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18),
         backgroundColor: const Color(0xFF444444),
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'My Task',
               style: TextStyle(color: Colors.white, fontSize: 28),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
-              'Saturday, November 4',
-              style: TextStyle(color: Colors.white),
+              ref.watch(date),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),

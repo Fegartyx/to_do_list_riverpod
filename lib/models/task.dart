@@ -2,13 +2,13 @@ class Task {
   final int id;
   final String title;
   final String description;
-  final bool isCompleted;
+  final int isCompleted;
 
   Task(
     this.id, {
     required this.title,
     required this.description,
-    this.isCompleted = false,
+    this.isCompleted = 0,
   });
 
   factory Task.fromMap(Map<String, dynamic> map) {

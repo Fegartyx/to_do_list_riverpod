@@ -1,11 +1,8 @@
 ## TODO
 
-- [] Add Data
-- [] Edit Data
-- [] Delete Data
-- [] Edit Data For Specific Field
-
 ### Progress
+
+- [] Edit Data For Specific Field
 
 ## Completed
 
@@ -21,3 +18,7 @@
 - [x] Adding model/entity for sqlite class
 - [x] Doing CRUD for sqlite
 - [x] Read Data From SqLite to State inside Riverpod
+- [x] Add Data
+- [x] Delete Data
+- [x] Fix state not updated
+- [x] changing to asyncnotifier

@@ -1,10 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do_list_riverpod/models/task.dart';
 import 'package:to_do_list_riverpod/models/task_db.dart';
 
-// TODO : Just Use FutureProvider cause getting data from sqlite no need StateNotifier
+/// Sebenarnya lebih muda jika pakai generator daripada menggunakan family yang hanya dapat mengirim satu paramater saja
 final dbConnect = Provider<TaskDB>((ref) => TaskDB());
+final date = Provider<String>((ref) {
+  final now = DateTime.now();
+  final String formatted = DateFormat.yMMMMd().format(now);
+  return formatted;
+});
 
 final readAllTaskProvider = FutureProvider<List<Task>>((ref) async {
   final db = ref.watch(dbConnect);
@@ -43,49 +51,57 @@ final updateTaskProvider =
   );
 });
 
-final class TaskProvider extends StateNotifier<List<Task>> {
-  List<Task> datas;
+class AsyncTaskProvider extends AutoDisposeAsyncNotifier<List<Task>> {
+  AsyncTaskProvider() : super();
 
-  TaskProvider({required this.datas}) : super(datas);
-
-  void setData(List<Task> data) {
-    state = data;
-    debugPrint("state : $state");
+  @override
+  Future<List<Task>> build() async {
+    // TODO: implement build
+    debugPrint("Masuk Ke Dalam BuildProvider");
+    return await readData();
   }
 
-// void addTask(Task task) {
-//   // state = _taskList..add(task);
-//   // state = List.from(state)..add(task);
-//   /**
-//    * Pertama simpan data list ke dalam state jika ingin merubahnya maka gunakan state = [...state, task]; untuk mengambil data dari state sebelumnya
-//    * kode diatas mirip dengan kode state = List.from(state)..add(task);
-//    * Kedua simpan data list ke dalam list dengan _taskList.add(task);
-//    */
-//   state = [...state, task];
-//   _taskList.add(task);
-//   // debugPrint("Method di add task");
-//   // state.forEach((element) {
-//   //   debugPrint("id state : ${element.id}, title : ${element.title}");
-//   // });
-//   // debugPrint("jumlah state : ${state.length}");
-//   // _taskList.forEach((element) {
-//   //   debugPrint("id list : ${element.id}, title : ${element.title}");
-//   // });
-//   // debugPrint("jumlah list : ${_taskList.length}");
-// }
+  Future<List<Task>> readData() async {
+    try {
+      final db = ref.watch(dbConnect);
+      final data = await db.read();
+      data.forEach((element) {
+        debugPrint(
+            "id : ${element.id}, title : ${element.title}, completed : ${element.isCompleted}");
+      });
+      return data;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
 
-// void removeLastTask() {
-//   state = List.from(state)..removeLast();
-//   // state = [...state]..removeLast();
-//   _taskList.removeLast();
-// }
+  Future<void> addData(Map<String, dynamic> data) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref.watch(createTaskProvider(data).future);
+      return readData();
+    });
+  }
+
+  Future<void> updateData(Map<String, dynamic> data) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref.watch(updateTaskProvider(data).future);
+      return readData();
+    });
+  }
+
+  Future<void> removeSingleData(int id) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref.read(deleteTaskProvider(id).future);
+      return readData();
+    });
+  }
 }
 
 final taskProvider =
-    StateNotifierProvider.autoDispose<TaskProvider, List<Task>>((ref) {
-  return TaskProvider(
-      datas: ref.watch(readAllTaskProvider).maybeWhen(
-            data: (data) => data,
-            orElse: () => [],
-          ));
+    AsyncNotifierProvider.autoDispose<AsyncTaskProvider, List<Task>>(() {
+  return AsyncTaskProvider();
 });

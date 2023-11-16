@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../views/completed_page.dart';
+import '../views/edit_view_page.dart';
 import '../views/home_page.dart';
 import '../views/task_page.dart';
 import '../views/task_view_page.dart';
@@ -43,6 +44,16 @@ final GoRouter router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
         return const TaskViewPage();
+      },
+    ),
+    GoRoute(
+      path: '/edit-view-page/:id',
+      name: 'edit_view_page',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        return EditViewPage(
+          id: int.tryParse(state.pathParameters['id']!)!,
+        );
       },
     ),
   ],

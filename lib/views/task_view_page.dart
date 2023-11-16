@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:to_do_list_riverpod/providers/task_provider.dart';
 
-class TaskViewPage extends StatelessWidget {
+class TaskViewPage extends ConsumerWidget {
   const TaskViewPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController _titleController = TextEditingController();
     TextEditingController _descriptionController = TextEditingController();
 
@@ -18,11 +20,21 @@ class TaskViewPage extends StatelessWidget {
             },
             icon: const Icon(Icons.close)),
         centerTitle: true,
-        title: const Text("Adding Task"),
+        title: const Text(
+          "Adding Task",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF444444),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              var data = {
+                "title": _titleController.text,
+                "description": _descriptionController.text,
+              };
+              ref.read(taskProvider.notifier).addData(data);
+              context.pop();
+            },
             child: const Text(
               "Save",
               style: TextStyle(color: Colors.blue),
