@@ -14,8 +14,21 @@ tasking for handle your tasks everyday
 - [x] Go Router
 
 ## Preview Project
-![Uncompleted Task!](assets/preview/Uncomplete_Task.PNG)
-![Adding Task!](assets/preview/Adding_Task.PNG)
-![Complete Task!](assets/preview/Complete_Task.PNG)
-![Uncompleted Task!](assets/preview/Uncomplete_Task.PNG)
-![Video Task!](assets/preview/Task_Preview.gif)
+<details> 
+  <summary><h2>🛠️ My Favorite Tools</h2></summary>
+  <p>
+    <h3>Uncompleted Task</h3>
+    <img width="278" src="assets/preview/Uncomplete_Task.PNG" alt="Uncompleted Task">
+  </p>
+  <p>
+    <h3>Adding Task</h3>
+    <img width="278" src="assets/preview/Adding_Task.PNG" alt="Adding Task">
+  </p>
+  <p>
+    <h3>Completed Task</h3>
+    <img width="278" src="assets/preview/Complete_Task.PNG" alt="Complete Task">
+  </p>
+    <h3>Video Task</h3>
+    <img width="500" src="assets/preview/Task_Preview.gif" alt="Video Task">
+</details>
+
