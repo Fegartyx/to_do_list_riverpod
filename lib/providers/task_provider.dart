@@ -8,6 +8,7 @@ import 'package:to_do_list_riverpod/models/task_db.dart';
 
 /// Sebenarnya lebih muda jika pakai generator daripada menggunakan family yang hanya dapat mengirim satu paramater saja
 final dbConnect = Provider<TaskDB>((ref) => TaskDB());
+
 final date = Provider<String>((ref) {
   final now = DateTime.now();
   final String formatted = DateFormat.yMMMMd().format(now);
