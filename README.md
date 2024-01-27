@@ -14,9 +14,9 @@ tasking for handle your tasks everyday
 - [x] Go Router
 
 ## Preview Project
-<details> 
-  <summary><h2>🛠️ My Favorite Tools</h2></summary>
-  <p>
+<details open> 
+  <summary><h2>🛠️ Preview</h2></summary>
+  <p align="left">
     <h3>Uncompleted Task</h3>
     <img width="278" src="assets/preview/Uncomplete_Task.PNG" alt="Uncompleted Task">
   </p>
