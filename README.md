@@ -14,3 +14,8 @@ tasking for handle your tasks everyday
 - [x] Go Router
 
 ## Preview Project
+![Uncompleted Task!](assets/preview/Uncomplete_Task.PNG)
+![Adding Task!](assets/preview/Adding_Task.PNG)
+![Complete Task!](assets/preview/Complete_Task.PNG)
+![Uncompleted Task!](assets/preview/Uncomplete_Task.PNG)
+![Video Task!](assets/preview/Task_Preview.gif)
